@@ -1,0 +1,32 @@
+name: Pushes to Branch
+
+on:
+  push:
+    branches: [ fix/imagemetadata_for_api_25 ]
+
+env:
+  GITHUB_USERNAME: ${{ secrets.GIT_USER }}
+  GITHUB_ACCESS_TOKEN: ${{ secrets.GIT_ACCESS_TOKEN }}
+
+jobs:
+  publish:
+    runs-on: ubuntu-20.04
+    container: androidsdk/android-30:latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: 'fix/imagemetadata_for_api_25'
+      - name: Setup NDK
+        run: |
+          wget --quiet https://dl.google.com/android/repository/android-ndk-r17b-linux-x86_64.zip
+          mkdir /opt/android-sdk-linux/ndk
+          unzip -q android-ndk-r17b-linux-x86_64.zip -d /opt/android-sdk-linux/ndk
+      - name: Setup Properties
+        run: |
+          echo "ndk.dir=/opt/android-sdk-linux/ndk/android-ndk-r17b" >> local.properties
+      - name: Make Build
+        run: |
+          ./gradlew :imagepipeline-base:publishToMavenLocal
+      - name: Show Build
+        run: |
+          du -h ~/.m2
