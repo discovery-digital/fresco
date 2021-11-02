@@ -389,7 +389,9 @@ public class EncodedImage implements Closeable {
     try {
       inputStream = getInputStream();
       metaData = BitmapUtil.decodeDimensionsAndColorSpace(inputStream);
-      mColorSpace = metaData.getColorSpace();
+      if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+        mColorSpace = metaData.getColorSpace();
+      }
       Pair<Integer, Integer> dimensions = metaData.getDimensions();
       if (dimensions != null) {
         mWidth = dimensions.first;
