@@ -1,3 +1,7 @@
+Fork from https://github.com/facebook/fresco
+Includes a fix for the missing wrapper around the colorspace call in `imagepipe-base` call. Fix can be found in branch `fix/imagemetadata_for_api_25`; republishes SDK to Nexus as `com.discovery.fresco:imagepipe-base:2.0.1`
+
+
 # Fresco
 
 [![Build Status](https://circleci.com/gh/facebook/fresco.svg?style=shield)](https://circleci.com/gh/facebook/fresco)
