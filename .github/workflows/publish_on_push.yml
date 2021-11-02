@@ -24,9 +24,12 @@ jobs:
       - name: Setup Properties
         run: |
           echo "ndk.dir=/opt/android-sdk-linux/ndk/android-ndk-r17b" >> local.properties
-      - name: Make Build
+      - name: Make Build Local
         run: |
           ./gradlew :imagepipeline-base:publishToMavenLocal
-      - name: Show Build
+      - name: Show Build Local
         run: |
           du -h /root/.m2/
+      # - name: Publish Build To Nexus
+      #   run: |
+      #     ./gradlew :imagepipeline-base:publishAarPublicationToDiscoveryNexusRepository
