@@ -30,6 +30,9 @@ jobs:
       - name: Show Build Local
         run: |
           du -h /root/.m2/
+      - name: Publish Snapshot
+        run: |
+          ./release.sh
       # - name: Publish Build To Nexus
       #   run: |
       #     ./gradlew :imagepipeline-base:publishAarPublicationToDiscoveryNexusRepository
