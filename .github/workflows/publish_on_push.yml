@@ -27,10 +27,8 @@ jobs:
       - name: Make Build Local
         run: |
           ./gradlew install
-      - name: Upload to Nexus
-        run: |
-          curl -v -u ${GITHUB_USERNAME}:${GITHUB_ACCESS_TOKEN} --upload-file ~/.m2/repository/com/facebook/fresco/imagepipeline-base/2.0.1-SNAPSHOT/imagepipeline-base-2.0.1-SNAPSHOT-javadoc.jar https://nexus-prod-mercury.dnitv.net/repository/maven-snapshots/com/facebook/fresco/imagepipeline-base/2.0.1-SNAPSHOT/imagepipeline-base-2.0.1-SNAPSHOT-javadoc.jar
-          curl -v -u ${GITHUB_USERNAME}:${GITHUB_ACCESS_TOKEN} --upload-file ~/.m2/repository/com/facebook/fresco/imagepipeline-base/2.0.1-SNAPSHOT/imagepipeline-base-2.0.1-SNAPSHOT.pom https://nexus-prod-mercury.dnitv.net/repository/maven-snapshots/com/facebook/fresco/imagepipeline-base/2.0.1-SNAPSHOT/imagepipeline-base-2.0.1-SNAPSHOT.pom
-          curl -v -u ${GITHUB_USERNAME}:${GITHUB_ACCESS_TOKEN} --upload-file ~/.m2/repository/com/facebook/fresco/imagepipeline-base/2.0.1-SNAPSHOT/imagepipeline-base-2.0.1-SNAPSHOT-sources.jar https://nexus-prod-mercury.dnitv.net/repository/maven-snapshots/com/facebook/fresco/imagepipeline-base/2.0.1-SNAPSHOT/imagepipeline-base-2.0.1-SNAPSHOT-sources.jar
-          curl -v -u ${GITHUB_USERNAME}:${GITHUB_ACCESS_TOKEN} --upload-file ~/.m2/repository/com/facebook/fresco/imagepipeline-base/2.0.1-SNAPSHOT/maven-metadata-local.xml https://nexus-prod-mercury.dnitv.net/repository/maven-snapshots/com/facebook/fresco/imagepipeline-base/2.0.1-SNAPSHOT/maven-metadata-local.xml
-          curl -v -u ${GITHUB_USERNAME}:${GITHUB_ACCESS_TOKEN} --upload-file ~/.m2/repository/com/facebook/fresco/imagepipeline-base/2.0.1-SNAPSHOT/imagepipeline-base-2.0.1-SNAPSHOT.aar https://nexus-prod-mercury.dnitv.net/repository/maven-snapshots/com/facebook/fresco/imagepipeline-base/2.0.1-SNAPSHOT/imagepipeline-base-2.0.1-SNAPSHOT.aar
+      - name: Store Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: rebuilt-imagepipeline-base
+          path: /root/.m2/repository/com/facebook/fresco/imagepipeline-base/2.0.1-SNAPSHOT/
