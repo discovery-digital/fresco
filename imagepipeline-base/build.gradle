@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'maven'
 
 project.group = GROUP
 version = VERSION_NAME
@@ -29,6 +30,7 @@ dependencies {
     }
     testImplementation project(path: ':imagepipeline-base-test')
 }
+apply from: rootProject.file('release.gradle')
 
 android {
 
@@ -68,30 +70,3 @@ artifacts.add('archives', sourcesJar)
 artifacts.add('testOutput', jarTest)
 
 build.dependsOn jarTest
-
-apply plugin: 'maven-publish'
-
-afterEvaluate {
-    publishing {
-        repositories {
-            mavenLocal()
-            maven {
-                name = 'DiscoveryNexus'
-                credentials {
-                    username System.getenv('GITHUB_USERNAME')
-                    password System.getenv('GITHUB_ACCESS_TOKEN')
-                }
-                if (project.version.endsWith('-SNAPSHOT')) {
-                    url "https://nexus-prod-mercury.dnitv.net/repository/maven-snapshots"
-                } else {
-                    url "https://nexus-prod-mercury.dnitv.net/repository/maven-releases"
-                }
-            }
-        }
-        publications {
-            aar(MavenPublication) {
-                artifact sourcesJar
-            }
-        }
-    }
-}
