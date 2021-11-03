@@ -31,4 +31,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: rebuilt-imagepipeline-base
-          path: /root/.m2/repository/com/facebook/fresco/imagepipeline-base/2.0.1-SNAPSHOT/
+          path: /root/.m2/repository/com/facebook/fresco/imagepipeline-base/2.0.1/
