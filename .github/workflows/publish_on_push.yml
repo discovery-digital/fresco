@@ -24,15 +24,13 @@ jobs:
       - name: Setup Properties
         run: |
           echo "ndk.dir=/opt/android-sdk-linux/ndk/android-ndk-r17b" >> local.properties
-      # - name: Make Build Local
-      #   run: |
-      #     ./gradlew :imagepipeline-base:publishToMavenLocal
-      # - name: Show Build Local
-      #   run: |
-      #     du -h /root/.m2/
-      - name: Publish Snapshot
+      - name: Make Build Local
         run: |
-          ./release.sh
-      # - name: Publish Build To Nexus
-      #   run: |
-      #     ./gradlew :imagepipeline-base:publishAarPublicationToDiscoveryNexusRepository
+          ./gradlew install
+      - name: Upload to Nexus
+        run: |
+          curl -v -u ${GITHUB_USERNAME}:${GITHUB_ACCESS_TOKEN} --upload-file ~/.m2/repository/com/facebook/fresco/imagepipeline-base/2.0.1-SNAPSHOT/imagepipeline-base-2.0.1-SNAPSHOT-javadoc.jar https://nexus-prod-mercury.dnitv.net/repository/maven-snapshots/com/facebook/fresco/imagepipeline-base/2.0.1-SNAPSHOT/imagepipeline-base-2.0.1-SNAPSHOT-javadoc.jar
+          curl -v -u ${GITHUB_USERNAME}:${GITHUB_ACCESS_TOKEN} --upload-file ~/.m2/repository/com/facebook/fresco/imagepipeline-base/2.0.1-SNAPSHOT/imagepipeline-base-2.0.1-SNAPSHOT.pom https://nexus-prod-mercury.dnitv.net/repository/maven-snapshots/com/facebook/fresco/imagepipeline-base/2.0.1-SNAPSHOT/imagepipeline-base-2.0.1-SNAPSHOT.pom
+          curl -v -u ${GITHUB_USERNAME}:${GITHUB_ACCESS_TOKEN} --upload-file ~/.m2/repository/com/facebook/fresco/imagepipeline-base/2.0.1-SNAPSHOT/imagepipeline-base-2.0.1-SNAPSHOT-sources.jar https://nexus-prod-mercury.dnitv.net/repository/maven-snapshots/com/facebook/fresco/imagepipeline-base/2.0.1-SNAPSHOT/imagepipeline-base-2.0.1-SNAPSHOT-sources.jar
+          curl -v -u ${GITHUB_USERNAME}:${GITHUB_ACCESS_TOKEN} --upload-file ~/.m2/repository/com/facebook/fresco/imagepipeline-base/2.0.1-SNAPSHOT/maven-metadata-local.xml https://nexus-prod-mercury.dnitv.net/repository/maven-snapshots/com/facebook/fresco/imagepipeline-base/2.0.1-SNAPSHOT/maven-metadata-local.xml
+          curl -v -u ${GITHUB_USERNAME}:${GITHUB_ACCESS_TOKEN} --upload-file ~/.m2/repository/com/facebook/fresco/imagepipeline-base/2.0.1-SNAPSHOT/imagepipeline-base-2.0.1-SNAPSHOT.aar https://nexus-prod-mercury.dnitv.net/repository/maven-snapshots/com/facebook/fresco/imagepipeline-base/2.0.1-SNAPSHOT/imagepipeline-base-2.0.1-SNAPSHOT.aar
