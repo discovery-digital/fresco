@@ -27,8 +27,13 @@ jobs:
       - name: Make Build Local
         run: |
           ./gradlew install
+      ## Yes this is all a bit hacky, but I had to bodge something together. 
+      - name: Replace POM
+        run: |
+          rm /root/.m2/repository/com/facebook/fresco/imagepipeline-base/2.0.2/imagepipeline-base-2.0.2.pom
+          cp imagepipeline-base/imagepipeline-base-2.0.2.pom /root/.m2/repository/com/facebook/fresco/imagepipeline-base/2.0.2/imagepipeline-base-2.0.2.pom
       - name: Store Artifacts
         uses: actions/upload-artifact@v2
         with:
           name: rebuilt-imagepipeline-base
-          path: /root/.m2/repository/com/facebook/fresco/imagepipeline-base/2.0.1/
+          path: /root/.m2/repository/com/facebook/fresco/imagepipeline-base/
